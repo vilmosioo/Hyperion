@@ -1,29 +1,30 @@
-<h1>About Hyperion</h1>
-The <strong>Hyperion blank WordPress Theme</strong> is a highly customised developer's theme, having a lots of features, suitable for a wide range of projects. 
-<h2>Features</h2>
-<ol>
-<li><a href='#'>Responsive design</a></li>
-<li><a href='#'>HTML5 structure</a></li>
-<li><a href='#'>Included HTML5 Boilerplate and Moderniser</a></li>
-<li><a href='#'>Microformats</a></li>
-<li><a href='#'>Widget ready, custom header and custom background</a></li>
-<li><a href='#'>Custom post sample</a></li>
-<li><a href='#'>Custom login page and dashboard</a></li>
-<li><a href='#'>Internet Explorer 9 pinned tasks</a></li>
-<li><a href='#'>Sample theme options page</a></li>
-</ol>
-<h2>Theme files</h2>
-<ul>
-	<li>404 Template<br><span>(404.php)</span></li>
-	<li>Comments<br><span>(comments.php)</span></li>
-	<li>Footer<br><span>(footer.php)</span></li>
-	<li>Header<br><span>(header.php)</span></li>
-	<li>Main Index Template<br><span>(index.php)</span></li>
-	<li>Search Form<br><span>(searchform.php)</span></li>
-	<li>Sidebar<br><span>(sidebar.php)</span></li>
-	<li>Theme Functions<br><span>(functions.php)</span></li>
-	<li>loop-custom.php<br><span>(loop-custom.php)</span></li>
-	<li>loop-related.php<br><span>(loop-related.php)</span></li>
-	<li>loop.php<br><span>(loop.php)</span></li>
-	<li>theme-options-page.php<br><span>(theme-options-page.php)</span></li>
-</ul>
+About Hyperion
+
+The Hyperion blank WordPress Theme is a highly customised developer's theme, having a lots of features, suitable for a wide range of projects. 
+
+Features
+
+	Responsive design
+	HTML5 structure
+	Included HTML5 Boilerplate and Moderniser
+	Microformats
+	Widget ready, custom header and custom background
+	Custom post sample
+	Custom login page and dashboard
+	Internet Explorer 9 pinned tasks
+	Sample theme options page
+
+Theme files
+
+	404 Template(404.php)
+	Comments(comments.php)
+	Footer(footer.php)
+	Header(header.php)
+	Main Index Template(index.php)
+	Search Form(searchform.php)
+	Sidebar(sidebar.php)
+	Theme Functions(functions.php)
+	loop-custom.php(loop-custom.php)
+	loop-related.php(loop-related.php)
+	loop.php(loop.php)
+	theme-options-page.php(theme-options-page.php)
