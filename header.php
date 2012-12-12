@@ -68,7 +68,26 @@
 		<script type="text/javascript">
 			document.documentElement.className = document.documentElement.className.replace('no-js', '');
 		</script>
-
+		<?php if(is_singular()) { ?>
+			<meta name="twitter:card" content="summary">
+			<?php 
+				$twitter = the_author_meta('twitter', $post->post_author); 
+				if($twitter){
+			?>
+			<meta name="twitter:creator" content="<?php echo $twitter;?>">
+			<?php } ?>
+			<meta name="twitter:url" content="<?php echo get_permalink($post->ID); ?>">
+			<meta name="twitter:title" content="<?php echo $post->post_title;?>">
+			<meta name="twitter:description" content="<?php echo substr( $post->post_content, 0, 150 );?>">
+			<?php 
+				$url = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); 
+				if($url){
+			?>
+			<meta name="twitter:image" content="<?php echo $url;?>">
+			<?php 
+				}
+		}
+		?>
 		<!-- !html5 elements for ie<9 -->
 		<!--[if lte IE 8 ]> <script type="text/javascript">var htmlForIe = ["abbr" ,"article" ,"aside" ,"audio" ,"canvas" ,"details" ,"figcaption" ,"figure" ,"footer" ,"header" ,"hgroup" ,"mark" ,"meter" ,"nav" ,"output" ,"progress" ,"section" ,"summary" ,"time" ,"video"], htmlForIeLen = htmlForIe.length; for(i=0;i<htmlForIeLen;i++){ document.createElement(htmlForIe[i]); }</script> <![endif]-->
 
