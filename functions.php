@@ -90,7 +90,7 @@ if ( !function_exists('hyperion_setup') ){
 		hyperion_sidebars();
 		hyperion_customise_admin_area();
 		hyperion_removeBlogSlug();
-		get_template_part( 'theme-options-page' ); 
+		include( "includes/theme-options-page.php" ); 
 
 		register_post_type('custom-post', array(
 			'label' => __('Custom post'),
@@ -181,7 +181,7 @@ if ( !function_exists('hyperion_customise_admin_area') ) {
 		// Custom CSS for the whole admin area (use to customise the theme options page)
 		// Create wp-admin.css in your theme folder
 		function AdminCSS() {
-		    	echo '<link rel="stylesheet" type="text/css" href="'.get_bloginfo('template_directory').'/wp-admin.css"/>';
+		    	echo '<link rel="stylesheet" type="text/css" href="'.THEME_PATH.'/admin/wp-admin.css"/>';
 		}
 		add_action('admin_head', 'AdminCSS');
 	}
