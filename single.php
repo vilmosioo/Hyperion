@@ -7,11 +7,11 @@ get_header();
 
 <div id='main' role="main">
 	<div class='container'>
-		<section class='content'>
+		<section class='content clearfix'>
 		<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 				<header>
-					<h1><?php single_post_title();?></h1>
+					<h1><?php the_title();?></h1>
 				</header>
 				<aside class='aside meta'>
 					Posted on <?php the_time(get_option('date_format')); ?> in <?php the_category(', '); ?> <?php the_tags(' &#8226; Talking about ', ', '); ?> &#8226; <a href='#comments'><?php comments_number('No Comments :(', 'One Comment', '% Comments' ); ?></a> &#8226; <a title="Permalink to <?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>">Permalink</a> 
@@ -39,7 +39,6 @@ get_header();
 		</section>
 
 		<?php get_sidebar(); ?>
-		<div class='clear'></div>
 	</div>
 </div>
 <?php get_footer(); ?>

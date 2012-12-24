@@ -155,6 +155,13 @@ if ( !function_exists('hyperion_sidebars') ) {
 				'before_title' => '<h4>',
 				'after_title' => '</h4>',
 			));
+			register_sidebar(array(
+				'name' => 'Front Page',
+				'before_widget' => '<div id="%1$s" class="widget grid-3 %2$s">',
+				'after_widget' => '</div>',
+				'before_title' => '<h3>',
+				'after_title' => '</h3>',
+			));
 		}
 	}
 }
