@@ -32,7 +32,7 @@ if ($categories || $tags) {
  		while( $my_query->have_posts() ) {
  			$my_query->the_post(); ?>
 			<li>
-				<?php post_thumbdail( 'thumbnail' ); ?>
+				<?php Hyperion::post_thumbnail( 'thumbnail' ); ?>
 				<a href='<?php the_permalink(); ?>' rel='canonical'><?php the_title();?></a>
 			</li>
  			<?php
