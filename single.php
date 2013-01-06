@@ -23,7 +23,7 @@ get_header();
 					<span class='fright'><?php next_post_link(); ?></span> 
 					<div class='clear'></div>
 				</aside>
-				<?php get_template_part( 'loop' , 'related' ); ?>
+				<?php Hyperion::related_posts($post->ID); ?>
 				<aside class='aside author'>
 					<?php echo get_avatar( get_the_author_meta( 'email' ), '100' ); ?>
 					<h4> About <strong><?php the_author_meta( 'display_name' ); ?></strong> </h4>
