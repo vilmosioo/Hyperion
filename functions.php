@@ -5,19 +5,44 @@ define( 'HOME_URL', home_url() );
 if ( ! isset( $content_width ) ) $content_width = 1200;
 
 require_once 'includes/Hyperion.php';
-// TO DO Make this a class too
-require_once 'includes/theme-options-page.php';
+require_once 'includes/Theme_Options.php';
+require_once 'includes/Utils.php';
 
 class HyperionBasedTheme extends Hyperion{
+	private $theme_options;
 	
 	/*
 	The class constructor, fired after setup theme event.
 	Will load all settings of the theme 
 	*/
 	function __construct(){	
-		// TO DO Change this to something relevant
+		parent::__construct();
+
 		add_shortcode('shortcode', array( &$this, 'some_shortcode' ));
 		add_action( 'widgets_init', array( &$this, 'register_sidebars' ) );
+
+		$this->theme_options = new Theme_Options();
+		$this->theme_options->addTab(array(
+			'name' => 'General',
+			'slug' => 'general',
+			'options' => array(
+				'option1' => 'Option 1',
+				'option2' => 'Option 2'
+			)
+		));
+
+		$this->theme_options->addTab(array(
+			'name' => 'Help',
+			'slug' => 'help',
+			'options' => array(
+				'option3' => array(
+					'name' => 'Option 3',
+					'desc' => 'Some description'
+				),
+				'option4' => 'Option 4'
+			)
+		));
+		$this->theme_options->render();
 
 		$this->registerPostTypes(); 
 	}

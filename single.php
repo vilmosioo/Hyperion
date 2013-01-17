@@ -16,14 +16,14 @@ get_header();
 				<aside class='aside meta'>
 					Posted on <?php the_time(get_option('date_format')); ?> in <?php the_category(', '); ?> <?php the_tags(' &#8226; Talking about ', ', '); ?> &#8226; <a href='#comments'><?php comments_number('No Comments :(', 'One Comment', '% Comments' ); ?></a> &#8226; <a title="Permalink to <?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>">Permalink</a> 
 				</aside>
-				<?php Hyperion::post_thumbnail( 'full' ); ?>
+				<?php Utils::post_thumbnail( 'full' ); ?>
 				<?php the_content();?>				
 				<aside class='aside' id='post-navigation'>
 					<span class='fleft'><?php previous_post_link(); ?></span> 
 					<span class='fright'><?php next_post_link(); ?></span> 
 					<div class='clear'></div>
 				</aside>
-				<?php Hyperion::related_posts($post->ID); ?>
+				<?php Utils::related_posts($post->ID); ?>
 				<aside class='aside author'>
 					<?php echo get_avatar( get_the_author_meta( 'email' ), '100' ); ?>
 					<h4> About <strong><?php the_author_meta( 'display_name' ); ?></strong> </h4>
