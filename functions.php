@@ -5,8 +5,11 @@ define( 'HOME_URL', home_url() );
 if ( ! isset( $content_width ) ) $content_width = 1200;
 
 require_once 'includes/Hyperion.php';
-require_once 'includes/Theme_Options.php';
 require_once 'includes/Utils.php';
+require_once 'includes/Theme_Options.php';
+require_once 'includes/Metabox.php';
+require_once 'includes/Custom_Post.php';
+require_once 'includes/Gist_Manager.php';
 
 class HyperionBasedTheme extends Hyperion{
 	private $theme_options;
@@ -55,16 +58,7 @@ class HyperionBasedTheme extends Hyperion{
 
 	// register post types
 	function registerPostTypes(){
-		register_post_type('custom', array(
-			'label' => __('Custom post'),
-			'singular_label' => __('Custom post'),
-			'public' => true,
-			'show_ui' => true,
-			'capability_type' => 'post',
-			'hierarchical' => false,
-			'has_archive' => 'custom',
-			'supports' => array('title', 'editor', 'author', 'thumbnail', 'custom-fields'),
-		));
+		new Custom_Post(array('name' => 'Custom post'));
 	}
 
 	/*
