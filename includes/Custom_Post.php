@@ -2,7 +2,7 @@
 /*
 * WordPress Custom Post
 * 
-* Represents a custom post in WordPress
+* Creates a custom post in WordPress
 */
 
 class Custom_Post{

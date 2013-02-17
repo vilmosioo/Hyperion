@@ -2,40 +2,6 @@
 // STATIC RESOURCES
 
 class Utils{
-    /*
-    * Curl function
-    *
-    * Thank you
-    * http://vertstudios.com/blog/github-api-latest-commit-details-php/
-    */
-
-    static function get_json_curl($url){
-        $base = "https://api.github.com/";
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $base . $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-        //curl_setopt($curl, CONNECTTIMEOUT, 1);
-        $content = curl_exec($curl);
-        curl_close($curl);
-        return $content;
-    }
-
-    static function get_repos($user) {
-        // Get the json from github for the repos
-        return json_decode(self::get_json_curl("users/$user/repos"),true);
-    }
-
-    static function get_commits($repo, $user){
-        // Get the name of the repo that we'll use in the request url
-        return json_decode(self::get_json_curl("repos/$user/$repo/commits"),true);
-    }
-
-    static function get_gists($user){
-        return json_decode(self::get_json_curl("users/$user/gists"),true);
-    }
-
 	/*
     * Return details about the last JSON error
     */
