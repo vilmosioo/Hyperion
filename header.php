@@ -71,11 +71,9 @@
 		<!-- !html5 elements for ie<9 -->
 		<!--[if lte IE 8 ]> <script type="text/javascript">var htmlForIe = ["abbr" ,"article" ,"aside" ,"audio" ,"canvas" ,"details" ,"figcaption" ,"figure" ,"footer" ,"header" ,"hgroup" ,"mark" ,"meter" ,"nav" ,"output" ,"progress" ,"section" ,"summary" ,"time" ,"video"], htmlForIeLen = htmlForIe.length; for(i=0;i<htmlForIeLen;i++){ document.createElement(htmlForIe[i]); }</script> <![endif]-->
 
-		<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>"/>
 		<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-		<?php wp_enqueue_script( 'jquery' ); ?>
+		<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>"/>
 		
-		<?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
 		<?php wp_head(); ?>
 	</head>
 	
@@ -90,5 +88,9 @@
 				<nav>
 					<?php wp_nav_menu( array('menu' => 'Main', 'container' => false, )); ?>
 				</nav>
+
 			</div>
-		</header>
+		</header><!--#header-->
+
+		<div id='main' role="main">
+		  <div class='container'>

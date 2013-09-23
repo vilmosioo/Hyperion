@@ -2,63 +2,82 @@
 /*
 * Theme options
 * 
-* Loads default settings for the Hyperion theme 
+* Loads default settings for the vilmosioo theme 
 */
 class Theme_Options{
 
 	private $tabs;
 	private $current;
 
+	const TEXT = 0;
+	const PORTFOLIO_SELECT = 1;
+
 	function __construct(){
 		if(!is_admin()) return;
-		$this->current = ( isset( $_GET['tab'] ) ? $_GET['tab'] : 'general' ); 
+		$this->current = ( isset( $_GET['tab'] ) ? $_GET['tab'] : '' ); 
 	}
 
 	// Parameters : slug, name, description, tab
 	function addField($args = array()){
-		$args = array_merge ( array(
-	      "tab" => 'general',
-	      "name" => 'Option name',
-	      "desc" => ""
-	    ), $args );
+		if(!is_array($args['option']) && is_string($args['option'])){
+			$args['option'] = array('name' => $args['option']);
+		}
 
-        $this->tabs[$args['tab']]['options'][Utils::generate_slug($args['name'])] = array(
-        	'name' => $args['name'],
-        	'desc' => $args['desc']
+		$args['option'] = array_merge ( array(
+	      		"name" => 'Option name',
+	    		"desc" => "",
+	      		"type" => self::TEXT
+  		), $args['option'] );
+
+        $this->tabs[$args['tab']]['options'][Utils::generate_slug($args['option']['name'])] = array(
+        	'name' => $args['option']['name'],
+        	'desc' => $args['option']['desc'],
+        	'type' => $args['option']['type']
         );
 	}
 
 	// Parameters : slug, name, description, tab
 	function addTab($args = array()){
+		// TODO investigate wp_parse_args
 		$args = array_merge ( array(
 	      "name" => 'General',
 	      "desc" => "",
 	      "options" => array()
 	    ), $args );
 
-        $this->tabs[Utils::generate_slug($args['name'])] = array(
+		$slug = Utils::generate_slug($args['name']);
+		$this->current = empty($this->current) ? $slug : $this->current;
+
+        $this->tabs[$slug] = array(
         	'name' => $args['name'],
-        	'desc' => $args['desc'],
-        	'options' => $args['options']
+        	'desc' => $args['desc']
         );
+
+        foreach ($args['options'] as $option) {
+			$this->addField(array('tab' => $slug, 'option' => $option));        	
+        } 
 	}
 
 	function render(){
 		// initialise options
 		foreach($this->tabs as $slug => $tab){
-			if(!get_option('hyperion_options_'.$slug)){
+			if(!get_option('vilmosioo_options_'.$slug)){
 				$defaults = array();
 				
 				foreach( $tab['options'] as $option){
-					$defaults[Utils::generate_slug($option)] = $option;
+					$name = Utils::generate_slug($option['name']);
+					$title = $option['name'];
+					$desc = $option['desc'];
+				
+					$defaults[$name] = $title;
 				}
 			
-				update_option( 'hyperion_options_'.$slug, $defaults );
+				update_option( 'vilmosioo_options_'.$slug, $defaults );
 			}	
 		}
 
 		add_action('admin_menu', array(&$this, 'init'));
-		add_action( 'admin_init', array(&$this, 'register_mysettings') );
+		add_action('admin_init', array(&$this, 'register_mysettings') );
 	}
 
 	/*
@@ -67,7 +86,7 @@ class Theme_Options{
 	* Initializes the theme's options. Called on admin menu action.
 	*/
 	function init(){
-		add_theme_page('Theme Options', 'Theme Options', 'administrator', 'hyperion', array(&$this, 'settings_page_setup'));
+		add_theme_page('Theme Options', 'Theme Options', 'administrator', 'vilmosioo', array(&$this, 'settings_page_setup'));
 	}
 
 	/*
@@ -83,8 +102,8 @@ class Theme_Options{
 		} 
 		?>
 		<form method="post" action="options.php">
-			<?php settings_fields( 'hyperion_options_'.$this->current ); ?>
-			<?php do_settings_sections( 'hyperion' ); ?>
+			<?php settings_fields( 'vilmosioo_options_'.$this->current ); ?>
+			<?php do_settings_sections( 'vilmosioo' ); ?>
 	    	<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 			</p>
@@ -108,7 +127,7 @@ class Theme_Options{
            	} else {
            		$active_class = "";
            	}
-       		$links[] = "<a class='nav-tab $active_class' href='?page=hyperion&tab=$slug'>$tab[name]</a>";
+       		$links[] = "<a class='nav-tab $active_class' href='?page=vilmosioo&tab=$slug'>$tab[name]</a>";
        	}
 
 		echo '<div id="icon-themes" class="icon32"><br /></div>'.
@@ -126,38 +145,62 @@ class Theme_Options{
 	*/
 	function register_mysettings() {		
 		foreach($this->tabs as $slug=>$tab){
-			register_setting( 'hyperion_options_'.$slug, 'hyperion_options_'.$slug );
+			register_setting( 'vilmosioo_options_'.$slug, 'vilmosioo_options_'.$slug );
 			if($slug != $this->current) continue;
-			add_settings_section( 'options_section_'.$slug, '', array(&$this, 'section_handler'), 'hyperion' ); 
-			foreach($tab['options'] as $option){
-				$name = Utils::generate_slug($option);
-				$title = $option;
-				$desc = '';
-				if(is_array($option)){
-					$name = Utils::generate_slug($option['name']);
-					$title = $option['name'];
-					$desc = $option['desc'];
-				}
-
-				add_settings_field( $name, $title, array(&$this, 'input_handler'), 'hyperion', 'options_section_'.$slug, array("name" => $name, 'section' => $slug, 'desc' => $desc) );
+			add_settings_section( 'options_section_'.$slug, '', array(&$this, 'section_handler'), 'vilmosioo' ); 
+			foreach($tab['options'] as $key => $option){
+				add_settings_field( $key, $option['name'], array(&$this, 'input_handler'), 'vilmosioo', 'options_section_'.$slug, array("tab" => $slug, 'option' => array_merge(array('slug' => $key), $option)));
 			}
 		}
 	}
 
 	function section_handler($args){
-		$id = substr($args['id'], 16); // 16 is the length of the section prefix: hyperion_options_
+		$id = substr($args['id'], 16); // 16 is the length of the section prefix: vilmosioo_options_
 		echo "<h2 class='section'>".$this->tabs[$id]['title']."</h2>"; 
 		echo "<p>".$this->tabs[$id]['desc']."</p>"; 
 	}
 
 	function input_handler($args){
-		$id = $args['name'];
-		$name = 'hyperion_options_'.$args['section']."[$id]";
-		$value = get_option("hyperion_options_".$args['section']);
-		$value = $value[$id];
-		echo "<input type='text' id='$id' name='$name' value='$value'>"; 
-		if ( $args['desc'] != '' )
-		echo '<br /><span class="description">' . $args['desc'] . '</span>';
+		$option = $args['option'];
+		$id = $option['slug'];
+		$name = 'vilmosioo_options_'.$args['tab']."[$id]";
+		$values = get_option("vilmosioo_options_".$args['tab']);
+		$value = $values[$id];
+		
+		switch ($option['type']) {
+		    case self::PORTFOLIO_SELECT:
+		    	echo "<select id='$id' name='$name".'[]'."' multiple=\"multiple\">";
+		    	$id = array();
+		        $args = array( 'post_type' => 'portfolio-item', 'posts_per_page' => -1 );
+				$the_query = new WP_Query( $args );
+				while ( $the_query->have_posts() ) : $the_query->the_post(); 
+				?>
+					<option value="<?php the_ID(); ?>" <?php if( is_array($value) && in_array(get_the_ID(), $value) ){ echo "selected='selected'"; array_push($id, get_the_ID()); } ?> ><?php the_title(); ?></option>
+				<?php 
+				endwhile; 
+				echo "</select>";
+				wp_reset_postdata(); 
+
+				?>
+				<h2>Preview slider images</h2>
+				<?php
+				$args = array( 'post_type' => 'portfolio-item', 'posts_per_page' => -1 , 'post__in' => $id);
+				$the_query = new WP_Query( $args );
+				while ( $the_query->have_posts() ) : $the_query->the_post();
+					echo "<div class='img'>";
+					the_title('<h3>','</h3>');
+					the_post_thumbnail( 'nivo' ); 
+					echo "</div>";
+				endwhile; 
+				wp_reset_postdata(); 
+				break;
+		    default:
+				echo "<input type='text' id='$id' name='$name' value='$value'>"; 
+		        break;
+		}
+
+		if ( $option['desc'] != '' )
+		echo '<br /><span class="description">' . $option['desc'] . '</span>';
 	}
 }
 ?>

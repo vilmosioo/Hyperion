@@ -14,16 +14,66 @@ require_once 'includes/Gist_Manager.php';
 class HyperionBasedTheme extends Hyperion{
 	private $theme_options;
 	
-	/*
-	The class constructor, fired after setup theme event.
-	Will load all settings of the theme 
+	/**
+	* The class constructor, fired after setup theme event.
+	* Will load all settings of the theme 
 	*/
 	function __construct(){	
 		parent::__construct();
 
+		// add actions and filters
 		add_shortcode('shortcode', array( &$this, 'some_shortcode' ));
 		add_action( 'widgets_init', array( &$this, 'register_sidebars' ) );
+		add_action( 'wp_enqueue_scripts', array( &$this, 'add_scripts_and_styles') );  
+		add_action( 'login_enqueue_scripts', array( &$this, 'login_styles'));
+		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_styles'));
+		add_filter( 'admin_footer_text', array( &$this, 'remove_footer_admin'));
+		
+		// add image sizes
+		add_image_size( 'single', 780, 500); 
+		add_image_size( 'nivo', 1040, 300, true ); //(cropped)
+		add_image_size( 'single', 780, 500); 
 
+		// final bits 
+		$this->register_post_types(); 
+		$this->register_scripts_and_styles();
+		$this->theme_options();
+	}
+
+	// Customise the footer in admin area
+	function remove_footer_admin () {
+		echo get_avatar('cool.villi@gmail.com' , '40' );
+		echo 'Theme designed and developed by <a href="http://vilmosioo.co.uk" target="_blank">Vilmos Ioo</a> and powered by <a href="http://wordpress.org" target="_blank">WordPress</a>.';
+	}
+	
+	// add custom admin styles
+	function admin_styles() {
+		wp_enqueue_style( 'vilmosioo-admin-css', THEME_PATH.'/css/wp-admin.css' );
+	}
+
+	// add custom login styles
+	function login_styles() {
+		wp_enqueue_style( 'vilmosioo-login-css', THEME_PATH.'/css/wp-login.css' );
+	}
+
+	// use this function to include conditional scripts and styles
+	function add_scripts_and_styles(){
+		if(is_front_page()){ 
+			// add custom scripts/styles
+		} 
+		if(get_the_title() == 'Something' ) {
+			// add custom scripts/styles
+		}
+	}
+
+
+	// Register scripts and styles with WP
+	function register_scripts_and_styles(){
+		// wp_register_script( '*', THEME_PATH.'/js/*.js', array( 'jquery' ), '1.0', true ); 
+		// wp_register_style( '*', THEME_PATH.'/css/*.css' );
+	}
+
+	public function theme_options(){
 		$this->theme_options = new Theme_Options();
 		$this->theme_options->addTab(array(
 			'name' => 'General',
@@ -46,8 +96,6 @@ class HyperionBasedTheme extends Hyperion{
 			)
 		));
 		$this->theme_options->render();
-
-		$this->registerPostTypes(); 
 	}
 
 	// create custom shortcodes
@@ -57,7 +105,7 @@ class HyperionBasedTheme extends Hyperion{
 	}
 
 	// register post types
-	function registerPostTypes(){
+	function register_post_types(){
 		new Custom_Post(array('name' => 'Custom post'));
 	}
 
@@ -76,20 +124,7 @@ class HyperionBasedTheme extends Hyperion{
 				'before_title' => '<h3>',
 				'after_title' => '</h3>',
 			));
-			register_sidebar(array(
-				'name' => 'Footer',
-				'before_widget' => '<div id="%1$s" class="widget grid-3 %2$s">',
-				'after_widget' => '</div>',
-				'before_title' => '<h4>',
-				'after_title' => '</h4>',
-			));
-			register_sidebar(array(
-				'name' => 'Front Page',
-				'before_widget' => '<div id="%1$s" class="widget grid-3 %2$s">',
-				'after_widget' => '</div>',
-				'before_title' => '<h3>',
-				'after_title' => '</h3>',
-			));
+			// register more sidebars...
 		}
 	}
 }

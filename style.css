@@ -87,6 +87,7 @@ input[type='submit']:hover, .blue:hover, .comment-reply-link:hover{ color:#111; 
 
 .container{ max-width:1040px; margin:0 auto; padding:0 20px; clear:both; }
 .content{width:75%; float:left; margin:0 0 60px; }
+.content.full{width:100%; float:none; }
 .content iframe{ width:640px; height:360px; margin:0 auto 15px; }
 
 #sidebar{ width:23%; float:right; }

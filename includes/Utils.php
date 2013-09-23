@@ -1,6 +1,5 @@
 <?php
 // STATIC RESOURCES
-
 class Utils{
 	/*
     * Return details about the last JSON error
@@ -56,14 +55,12 @@ class Utils{
 	* If found, the function will retur the post thumbnail, 
 	* else it will return the first image attached to the post
 	*/
-	static function post_thumbnail($full){
+	static function post_thumbnail($full = 'thumbnail', $class = ''){
 		if ( has_post_thumbnail() ) { 
-			echo "<aside><a href='".get_permalink()."' title='".get_the_title()."' rel='canonical'>";
+			echo "<aside><a href='".get_permalink()."' class='$class' title='".get_the_title()."' rel='canonical'>";
 			the_post_thumbnail($full);
 			echo "</a></aside>";
-		} else { 
-			if( $full == 'full' ) return;
-			
+		} else {
 			$attachments = get_posts( array(
 				'post_type' => 'attachment',
 				'numberposts'     => 1,
@@ -75,11 +72,10 @@ class Utils{
 				foreach ( $attachments as $attachment ) {
 					$href = wp_get_attachment_image_src( $attachment->ID, $full);
 				}
-				echo "<aside><a class='default' href='".get_permalink()."' title='".get_the_title()."' rel='canonical'>";
+				echo "<aside><a class='default $class' href='".get_permalink()."' title='".get_the_title()."' rel='canonical'>";
 				echo "<img src='".$href[0]."' alt='".get_the_title()."'/>"; 
 				echo "</a></aside>";
 			}
-	
 		}
 	}
 
@@ -131,7 +127,7 @@ class Utils{
 		 		while( $my_query->have_posts() ) {
 		 			$my_query->the_post(); ?>
 					<li>
-						<?php Utils::post_thumbnail( 'thumbnail' ); ?>
+						<?php Utils::post_thumbnail('thumbnail', 'cutout'); ?>
 						<a href='<?php the_permalink(); ?>' rel='canonical'><?php the_title();?></a>
 					</li>
 		 			<?php
