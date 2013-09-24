@@ -1,9 +1,31 @@
 <?php
+/**
+* Common function.php functions to minimize the main functions.php
+*
+* Example usage to include this code (in your funtions.php):
+* 
+* class MyTheme extends Hyperion{
+*		function __construct(){	
+*			parent::__construct();
+*	
+*			/...your code.../
+* 	}
+*   
+*   /...other functions.../
+* }
+* add_action( 'after_setup_theme', create_function( '', 'global $theme; $theme = new MyTheme();' ) );
+*
+*/
+
+// Define theme-wide constants
+define( 'THEME_PATH', get_bloginfo( 'stylesheet_directory' ) );
+define( 'HOME_URL', home_url() );
+if ( ! isset( $content_width ) ) $content_width = 1200;
 
 /*
 * Main theme class
 * 
-* Loads default settings for the Hyperion theme 
+* Loads default settings for all themes 
 */
 class Hyperion{
 	
@@ -14,14 +36,14 @@ class Hyperion{
 		set_post_thumbnail_size( 150, 150, true );
 		add_theme_support( 'menus' );
 		add_editor_style('css/editor-style.css');
-	    
-	    // add actions
+			
+			// add actions
 		add_action( 'wp_enqueue_scripts', array( &$this, 'add_scripts') );  
 		add_action( 'manage_media_custom_column', array( &$this, 'media_custom_columns', 0, 2));
 		
 		//add filters
 		add_filter( 'manage_upload_columns', array( &$this, 'upload_columns'));
-	    add_filter( 'post_thumbnail_html', array( &$this, 'remove_thumbnail_dimensions' ), 10 );
+		add_filter( 'post_thumbnail_html', array( &$this, 'remove_thumbnail_dimensions' ), 10 );
 		add_filter( 'image_send_to_editor', array( &$this, 'remove_thumbnail_dimensions' ), 10 );
 		add_filter( 'the_content', array( &$this, 'remove_thumbnail_dimensions' ), 10 );	
 		add_filter( 'the_content', array( &$this, 'filter_ptags_on_images' ));

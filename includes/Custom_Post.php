@@ -1,17 +1,27 @@
 <?php
 /*
-* WordPress Custom Post
+* Custom Post
 * 
-* Creates a custom post in WordPress
+* Creates a custom post for a WordPress theme. You can overwrite any default arguments that you wish.
+*
+* Example usage: Custom_Post::create(array('name' => 'Portfolio'))
+* 
+* Required: Utils.php
 */
+
+require_once 'Utils.php';
 
 class Custom_Post{
 	
-	private $name, $supports, $slug;
+	static public function create($args){
+		return new Custom_Post($args);
+	}
 
-	function __construct($args = array('name' => 'Portfolio')) {
+	protected $name, $supports, $slug;
+
+	protected function __construct($args = array('name' => 'Portfolio')) {
 		$args['labels'] = array_merge(
-      		array(
+					array(
 				'name' => $args['name'],
 				'singular_name' => $args['name'],
 				'add_new' => 'Add New',
@@ -56,20 +66,17 @@ class Custom_Post{
 
 	}
 
-	function add_to_dashboard(){
-	    $post_type = get_post_type_object($this->slug);
-        $num_posts = wp_count_posts( $post_type->name );
-        $num = number_format_i18n( $num_posts->publish );
-        $text = _n( Utils::pluralize($post_type->labels->singular_name), Utils::pluralize($post_type->labels->name) , intval( $num_posts->publish ) );
-        if ( current_user_can( 'edit_posts' ) ) {
-                $num = "<a href='edit.php?post_type=$post_type->name'>$num</a>";
-                $text = "<a href='edit.php?post_type=$post_type->name'>$text</a>";
-        }
-        echo '<tr><td class="first b b-' . $post_type->name . '">' . $num . '</td>';
-        echo '<td class="t ' . $post_type->name . '">' . $text . '</td></tr>';
+	protected function add_to_dashboard(){
+		$post_type = get_post_type_object($this->slug);
+		$num_posts = wp_count_posts( $post_type->name );
+		$num = number_format_i18n( $num_posts->publish );
+		$text = _n( Utils::pluralize($post_type->labels->singular_name), Utils::pluralize($post_type->labels->name) , intval( $num_posts->publish ) );
+		if ( current_user_can( 'edit_posts' ) ) {
+			$num = "<a href='edit.php?post_type=$post_type->name'>$num</a>";
+			$text = "<a href='edit.php?post_type=$post_type->name'>$text</a>";
+		}
+		echo '<tr><td class="first b b-' . $post_type->name . '">' . $num . '</td>';
+		echo '<td class="t ' . $post_type->name . '">' . $text . '</td></tr>';
 	}
-
-
 }
-
 ?>

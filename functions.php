@@ -5,11 +5,10 @@ define( 'HOME_URL', home_url() );
 if ( ! isset( $content_width ) ) $content_width = 1200;
 
 require_once 'includes/Hyperion.php';
-require_once 'includes/Utils.php';
 require_once 'includes/Theme_Options.php';
-require_once 'includes/Metabox.php';
 require_once 'includes/Custom_Post.php';
-require_once 'includes/Gist_Manager.php';
+require_once 'includes/Custom_Widget.sample.php';
+require_once 'includes/Metabox.php';
 
 class HyperionBasedTheme extends Hyperion{
 	private $theme_options;
@@ -28,14 +27,16 @@ class HyperionBasedTheme extends Hyperion{
 		add_action( 'login_enqueue_scripts', array( &$this, 'login_styles'));
 		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_styles'));
 		add_filter( 'admin_footer_text', array( &$this, 'remove_footer_admin'));
-		
+		add_action( 'widgets_init', array( &$this, 'register_widget' ));
+
 		// add image sizes
 		add_image_size( 'single', 780, 500); 
 		add_image_size( 'nivo', 1040, 300, true ); //(cropped)
 		add_image_size( 'single', 780, 500); 
 
 		// final bits 
-		$this->register_post_types(); 
+		$this->register_post_types();
+		$this->create_metabox(); 
 		$this->register_scripts_and_styles();
 		$this->theme_options();
 	}
@@ -106,9 +107,22 @@ class HyperionBasedTheme extends Hyperion{
 
 	// register post types
 	function register_post_types(){
-		new Custom_Post(array('name' => 'Custom post'));
+		Custom_Post::create(array('name' => 'Custom post'));
 	}
 
+	// create a custom widget
+	function register_widget() {
+		register_widget( 'Custom_Widget' );
+	}
+
+	// create a metabox
+	protected function create_metabox(){ 
+		MetaBox::create(array(
+			'fields' => array(
+					array('name' => 'Test field', 'description' => 'Some description')
+			)
+		));
+	}
 	/*
 	* Register theme sidebars.
 	*
