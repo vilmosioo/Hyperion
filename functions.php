@@ -4,11 +4,11 @@ define( 'THEME_PATH', get_bloginfo( 'stylesheet_directory' ) );
 define( 'HOME_URL', home_url() );
 if ( ! isset( $content_width ) ) $content_width = 1200;
 
-require_once 'includes/Hyperion.php';
-require_once 'includes/Theme_Options.php';
-require_once 'includes/Custom_Post.php';
-require_once 'includes/Custom_Widget.sample.php';
-require_once 'includes/Metabox.php';
+require_once 'bower_components/wordpress-tools/Hyperion.php';
+require_once 'bower_components/wordpress-tools/Theme_Options.php';
+require_once 'bower_components/wordpress-tools/Custom_Post.php';
+require_once 'bower_components/wordpress-tools/Custom_Widget.sample.php';
+require_once 'bower_components/wordpress-tools/Metabox.php';
 
 class HyperionBasedTheme extends Hyperion{
 	private $theme_options;

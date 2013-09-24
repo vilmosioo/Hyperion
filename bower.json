@@ -1,0 +1,8 @@
+{
+  "name": "Hyperion",
+  "version": "0.0.1",
+  "main": "index.php",
+  "dependencies": {
+    "wordpress-tools": "~0.0.1"
+  }
+}
