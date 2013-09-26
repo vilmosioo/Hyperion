@@ -58,6 +58,8 @@ class HyperionBasedTheme extends Hyperion{
 
 	// use this function to include conditional scripts and styles
 	function add_scripts_and_styles(){
+		// add any dependency libraries
+		wp_enqueue_script( 'hyperion-modernizr', THEME_PATH.'/components/modernizr/modernizr.js', array(), '2.6.2', true);
 		if(is_front_page()){ 
 			// add custom scripts/styles
 		} 

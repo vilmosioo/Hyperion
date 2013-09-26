@@ -17,7 +17,7 @@
   },
   "author": "Vilmos Ioo",
   "license": "MIT",
-  "readmeFilename": "README.md",
+  "readmeFilename": "app/README.md",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-uglify": "~0.2.4",

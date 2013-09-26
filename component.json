@@ -1,8 +1,0 @@
-{
-  "name": "Hyperion",
-  "version": "0.0.0",
-  "dependencies": {
-    "wordpress-tools": "~0.0.1",
-    "jquery": "~2.0.3"
-  }
-}

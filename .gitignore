@@ -2,6 +2,7 @@ node_modules/
 bower_components/
 components/
 dist/
+component.json
 
 #################
 ## Eclipse
