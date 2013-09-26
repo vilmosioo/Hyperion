@@ -4,11 +4,11 @@ define( 'THEME_PATH', get_bloginfo( 'stylesheet_directory' ) );
 define( 'HOME_URL', home_url() );
 if ( ! isset( $content_width ) ) $content_width = 1200;
 
-require_once 'bower_components/wordpress-tools/Hyperion.php';
-require_once 'bower_components/wordpress-tools/Theme_Options.php';
-require_once 'bower_components/wordpress-tools/Custom_Post.php';
-require_once 'bower_components/wordpress-tools/Custom_Widget.sample.php';
-require_once 'bower_components/wordpress-tools/Metabox.php';
+require_once 'components/wordpress-tools/Hyperion.php';
+require_once 'components/wordpress-tools/Theme_Options.php';
+require_once 'components/wordpress-tools/Custom_Post.php';
+require_once 'components/wordpress-tools/Custom_Widget.sample.php';
+require_once 'components/wordpress-tools/Metabox.php';
 
 class HyperionBasedTheme extends Hyperion{
 	private $theme_options;
@@ -32,7 +32,6 @@ class HyperionBasedTheme extends Hyperion{
 		// add image sizes
 		add_image_size( 'single', 780, 500); 
 		add_image_size( 'nivo', 1040, 300, true ); //(cropped)
-		add_image_size( 'single', 780, 500); 
 
 		// final bits 
 		$this->register_post_types();
@@ -43,18 +42,18 @@ class HyperionBasedTheme extends Hyperion{
 
 	// Customise the footer in admin area
 	function remove_footer_admin () {
-		echo get_avatar('cool.villi@gmail.com' , '40' );
-		echo 'Theme designed and developed by <a href="http://vilmosioo.co.uk" target="_blank">Vilmos Ioo</a> and powered by <a href="http://wordpress.org" target="_blank">WordPress</a>.';
+		echo get_avatar('[email]' , '40' );
+		echo 'Theme designed and developed by <a href="[url]" target="_blank">[name]</a> and powered by <a href="http://wordpress.org" target="_blank">WordPress</a>.';
 	}
 	
 	// add custom admin styles
 	function admin_styles() {
-		wp_enqueue_style( 'vilmosioo-admin-css', THEME_PATH.'/css/wp-admin.css' );
+		wp_enqueue_style( 'hyperion-admin-css', THEME_PATH.'/css/wp-admin.css' );
 	}
 
 	// add custom login styles
 	function login_styles() {
-		wp_enqueue_style( 'vilmosioo-login-css', THEME_PATH.'/css/wp-login.css' );
+		wp_enqueue_style( 'hyperion-login-css', THEME_PATH.'/css/wp-login.css' );
 	}
 
 	// use this function to include conditional scripts and styles
@@ -70,8 +69,8 @@ class HyperionBasedTheme extends Hyperion{
 
 	// Register scripts and styles with WP
 	function register_scripts_and_styles(){
-		// wp_register_script( '*', THEME_PATH.'/js/*.js', array( 'jquery' ), '1.0', true ); 
-		// wp_register_style( '*', THEME_PATH.'/css/*.css' );
+		wp_enqueue_script( 'default', THEME_PATH.'/js/script.js', array( 'jquery' ), '1.0', true ); 
+		wp_enqueue_script( 'plugins', THEME_PATH.'/js/plugins.js', array( 'jquery' ), '1.0', true ); 
 	}
 
 	public function theme_options(){

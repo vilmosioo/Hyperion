@@ -1,0 +1,37 @@
+{
+  "name": "Hyperion",
+  "version": "0.0.1",
+  "description": "The Hyperion blank WordPress Theme is a highly customised developer's theme, having a lots of features, suitable for a wide range of projects.",
+  "main": "index.php",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vilmosioo/Hyperion.git"
+  },
+  "keywords": [
+    "wordpress",
+    "theme"
+  ],
+  "config": {
+    "app": "app",
+    "dist": "dist"
+  },
+  "author": "Vilmos Ioo",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.4",
+    "matchdep": "~0.1.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-compass": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.6.2",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-imagemin": "~0.3.0",
+    "grunt-rev": "~0.1.0"
+  },
+  "dependencies": {
+    "angular": "0.0.4"
+  }
+}
