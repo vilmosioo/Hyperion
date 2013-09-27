@@ -42,7 +42,8 @@ module.exports = function(grunt) {
 			dist: {
 				options: {
 					sassDir: '<%= config.app %>',
-					cssDir: '.tmp'
+					cssDir: '.tmp',
+					importPath: 'components/bootstrap-sass/lib'
 				}
 			}
 		},
@@ -52,7 +53,7 @@ module.exports = function(grunt) {
 			},
 			minify: {
 				expand: true,
-				cwd: '<%= config.app %>',
+				cwd: '.tmp',
 				src: '**/*.css',
 				dest: '<%= config.dist %>'
 			}
@@ -84,7 +85,11 @@ module.exports = function(grunt) {
 			components: {
 				expand: true,
 				cwd: 'components',
-				src: '**/*',
+				src: [
+					'jquery/jquery.min.js',
+					'modernizr/modernizr.js',
+					'wordpress-tools/**/*'
+				],
 				dest: '<%= config.dist %>/components'
 			},
 		},
@@ -103,7 +108,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', [
 		'clean', // delete dist folder
 		'jshint', // validate all js files
-		// 'compass', // process all scss file and dump result in .tmp
+		'compass', // process all scss file and dump result in .tmp
 		'cssmin', // minify all css files from app folder and move them to dist folder
 		'uglify', // uglify all JS files from app folder and move them to in the dist folder
 		'imagemin', // copy images from app to dist and optimise them
