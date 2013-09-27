@@ -47,6 +47,9 @@ module.exports = function(grunt) {
 			}
 		},
 		cssmin: {
+			options: {
+				keepSpecialComments: 1
+			},
 			minify: {
 				expand: true,
 				cwd: '<%= config.app %>',
