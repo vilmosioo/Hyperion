@@ -76,6 +76,7 @@ module.exports = function(grunt) {
 				cwd: '<%= config.app %>',
 				src: [
 					'**/*.{php,html,ico,txt}',
+					'**/*.{png,jpg,jpeg,gif}',
 					'**/*.{webp,svg}',
 					'**/*.{eot,svg,ttf,woff}',
 					'**/*.{md}'
@@ -88,20 +89,14 @@ module.exports = function(grunt) {
 				src: [
 					'jquery/jquery.min.js',
 					'modernizr/modernizr.js',
+					'font-awesome/css/font-awesome.min.css',
+					'font-awesome/css/font-awesome-ie7.min.css',
+					'font-awesome/font/*',
+					'modernizr/modernizr.js',
 					'wordpress-tools/**/*'
 				],
 				dest: '<%= config.dist %>/components'
 			},
-		},
-		imagemin: {
-			dist: {
-				files: [{
-					expand: true,                  // Enable dynamic expansion
-					cwd: '<%= config.app %>',                   // Src matches are relative to this path
-					src: ['**/*.{png,jpg,jpeg,gif}'],   // Actual patterns to match
-					dest: '<%= config.dist %>'                  // Destination path prefix
-				}]
-			}
 		}
 	});
 
@@ -111,7 +106,6 @@ module.exports = function(grunt) {
 		'compass', // process all scss file and dump result in .tmp
 		'cssmin', // minify all css files from app folder and move them to dist folder
 		'uglify', // uglify all JS files from app folder and move them to in the dist folder
-		'imagemin', // copy images from app to dist and optimise them
 		'copy', // copy rest of files from app folder to dist (php ,html, txt, ico, fonts) and copy components in dist
 	]);
 
