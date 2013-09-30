@@ -36,7 +36,6 @@ class HyperionBasedTheme extends Hyperion{
 		// final bits 
 		$this->register_post_types();
 		$this->create_metabox(); 
-		$this->register_scripts_and_styles();
 		$this->theme_options();
 	}
 
@@ -60,19 +59,13 @@ class HyperionBasedTheme extends Hyperion{
 	function add_scripts_and_styles(){
 		// add any dependency libraries
 		wp_enqueue_script( 'hyperion-modernizr', THEME_PATH.'/components/modernizr/modernizr.js', array(), '2.6.2', true);
+		wp_enqueue_style( 'hyperion-font-awesome', THEME_PATH.'/components/font-awesome/css/font-awesome.min.css'); 
 		if(is_front_page()){ 
 			// add custom scripts/styles
 		} 
 		if(get_the_title() == 'Something' ) {
 			// add custom scripts/styles
 		}
-	}
-
-
-	// Register scripts and styles with WP
-	function register_scripts_and_styles(){
-		wp_enqueue_script( 'default', THEME_PATH.'/js/script.js', array( 'jquery' ), '1.0', true ); 
-		wp_enqueue_script( 'plugins', THEME_PATH.'/js/plugins.js', array( 'jquery' ), '1.0', true ); 
 	}
 
 	public function theme_options(){
