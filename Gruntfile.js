@@ -88,11 +88,9 @@ module.exports = function(grunt) {
 				cwd: 'components',
 				src: [
 					'jquery/jquery.min.js',
-					'modernizr/modernizr.js',
 					'font-awesome/css/font-awesome.min.css',
 					'font-awesome/css/font-awesome-ie7.min.css',
 					'font-awesome/font/*',
-					'modernizr/modernizr.js',
 					'wordpress-tools/**/*'
 				],
 				dest: '<%= config.dist %>/components'
