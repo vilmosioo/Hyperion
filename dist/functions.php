@@ -59,6 +59,7 @@ class HyperionBasedTheme extends Hyperion{
 	function add_scripts_and_styles(){
 		// add any dependency libraries
 		wp_enqueue_script( 'hyperion-modernizr', THEME_PATH.'/components/modernizr/modernizr.js', array(), '2.6.2', true);
+		wp_enqueue_script( 'hyperion-modernizrload', THEME_PATH.'/js/libs/modernizrload.min.js', array('hyperion-modernizr'), '2.6.2', true );
 		wp_enqueue_style( 'hyperion-font-awesome', THEME_PATH.'/components/font-awesome/css/font-awesome.min.css'); 
 		if(is_front_page()){ 
 			// add custom scripts/styles

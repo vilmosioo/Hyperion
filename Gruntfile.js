@@ -24,8 +24,8 @@ module.exports = function(grunt) {
 			},
 			all: [
 				'Gruntfile.js',
-				'<%= config.app %>/js/**/*.js',
-				'!<%= config.app %>/js/plugins.js'
+				'<%= config.app %>/**/*.js',
+				'!<%= config.app %>/**/*.min.js'
 			]
 		},
 		watch: {
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 				expand: true,
 				cwd: '<%= config.app %>',
 				src: [
-					'**/*.{php,html,ico,txt}',
+					'**/*.{php,html,css,ico,txt}',
 					'**/*.{png,jpg,jpeg,gif}',
 					'**/*.{webp,svg}',
 					'**/*.{eot,svg,ttf,woff}',
