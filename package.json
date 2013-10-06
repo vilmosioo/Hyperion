@@ -15,7 +15,7 @@
     "app": "app",
     "dist": "dist"
   },
-  "author": "Vilmos Ioo",
+  "author": "",
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
@@ -29,5 +29,6 @@
     "grunt-contrib-cssmin": "~0.6.2",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-modernizr": "~0.3.0"
+    
   }
 }

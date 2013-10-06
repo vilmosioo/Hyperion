@@ -33,6 +33,10 @@ module.exports = function(grunt) {
 				files: ['<%= config.app %>/js/**/*.js', '.tmp/*.css'],
 				tasks: ['build']
 			},
+			templates: {
+				files: ['<%= config.app %>/**/*.php', '<%= config.app %>/**/*.html'],
+				tasks: ['copy:templates']
+			},
 			compass: {
 				files: ['<%= config.app %>/**/*.scss'],
 				tasks: ['compass']
@@ -71,11 +75,22 @@ module.exports = function(grunt) {
 			}
 		},
 		copy: {
-			dist: {
+			templates: {
 				expand: true,
 				cwd: '<%= config.app %>',
 				src: [
 					'**/*.{php,html,css,ico,txt}',
+					'**/*.{png,jpg,jpeg,gif}',
+					'**/*.{webp,svg}',
+					'**/*.{eot,svg,ttf,woff}',
+					'**/*.{md}'
+				],
+				dest: '<%= config.dist %>'
+			},
+			dist: {
+				expand: true,
+				cwd: '<%= config.app %>',
+				src: [
 					'**/*.{png,jpg,jpeg,gif}',
 					'**/*.{webp,svg}',
 					'**/*.{eot,svg,ttf,woff}',
@@ -88,9 +103,11 @@ module.exports = function(grunt) {
 				cwd: 'components',
 				src: [
 					'jquery/jquery.min.js',
+					
 					'font-awesome/css/font-awesome.min.css',
 					'font-awesome/css/font-awesome-ie7.min.css',
 					'font-awesome/font/*',
+					
 					'wordpress-tools/**/*'
 				],
 				dest: '<%= config.dist %>/components'

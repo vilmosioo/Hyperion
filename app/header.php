@@ -76,7 +76,6 @@
 	</head>
 	
 	<body <?php body_class(); ?>>
-
 		<header id='header'>
 			<div class='container clearfix'>
 				<a href='<?php echo home_url(); ?>' id='logo'>
