@@ -1,4 +1,8 @@
-# About Hyperion
+# [deprecated] Hyperion
+
+Deprecated in favour of [Generator Wordpress Theme](https://github.com/vilmosioo/Generator-Wordpress-Theme.git "Generator Wordpress Theme")
+
+# About
 
 The **Hyperion blank WordPress Theme**  is a highly customised developer's theme, having a lots of features, suitable for a wide range of projects. 
 
