@@ -1,6 +1,6 @@
 # [deprecated] Hyperion
 
-Deprecated in favour of [Generator Wordpress Theme](https://github.com/vilmosioo/Generator-Wordpress-Theme.git "Generator Wordpress Theme")
+Deprecated in favour of [Generator Wordpress Theme](https://github.com/vilmosioo/Generator-Wordpress-Theme "Generator Wordpress Theme")
 
 # About
 
